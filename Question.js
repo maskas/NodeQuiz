@@ -1,5 +1,4 @@
 var React = require('react'),
-    Question = React.createFactory(require('./Question')),
     DOM = React.DOM, div = DOM.div, button = DOM.button, ul = DOM.ul, li = DOM.li
 
 // This is just a simple example of a component that can be rendered on both
@@ -11,21 +10,12 @@ module.exports = React.createClass({
   // was first rendered. We also want the button to be disabled until the
   // component has fully mounted on the DOM
   getInitialState: function() {
-    return {questions: this.props.questions, currentQuestion: this.props.currentQuestion, disabled: true}
+    return {text: this.props.text, answers: this.props.answers, disabled: true}
   },
 
   // Once the component has been mounted, we can enable the button
   componentDidMount: function() {
     this.setState({disabled: false})
-  },
-
-  // Then we just update the state whenever its clicked by adding a new item to
-  // the list - but you could imagine this being updated with the results of
-  // AJAX calls, etc
-  handleClick: function() {
-    this.setState({
-      items: this.state.items.concat('Item ' + this.state.items.length)
-    })
   },
 
   // For ease of illustration, we just use the React JS methods directly
@@ -34,13 +24,13 @@ module.exports = React.createClass({
   // when everything has loaded
   render: function() {
 
-    var curQuestion = this.props.questions[this.props.currentQuestion];
-
     return div(null,
 
-      button({onClick: this.handleClick, disabled: this.state.disabled}, 'Add Item'),
+      div(null, this.props.text),
+      ul({children: this.state.answers.map(function(item) {
+        return li(null, item.text)
+      })})
 
-      Question({text: curQuestion.text, answers: curQuestion.answers})
     )
   },
 })

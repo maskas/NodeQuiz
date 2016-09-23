@@ -27,12 +27,72 @@ http.createServer(function(req, res) {
     // imagine this would be objects typically fetched async from a DB,
     // filesystem or API, depending on the logged-in user, etc.
     var props = {
-      items: [
-        'Item 0',
-        'Item 1',
-        'Item </script>',
-        'Item <!--inject!-->',
-      ]
+      questions: [
+        {
+          text: 'Item 0',
+          answers: [
+            {
+              text: 'Answer 1',
+              correct: false
+            },
+            {
+              text: 'Answer 2',
+              correct: false
+            },
+            {
+              text: 'Answer 3',
+              correct: true
+            },
+            {
+              text: 'Answer 4',
+              correct: false
+            }
+          ]
+        },
+        {
+          text: 'Item </script>',
+          answers: [
+            {
+              text: 'Answer 1',
+              correct: false
+            },
+            {
+              text: 'Answer 2',
+              correct: false
+            },
+            {
+              text: 'Answer 3',
+              correct: true
+            },
+            {
+              text: 'Answer 4',
+              correct: false
+            }
+          ]
+        },
+        {
+          text: 'Item <!--inject!-->',
+          answers: [
+            {
+              text: 'Answer 1',
+              correct: false
+            },
+            {
+              text: 'Answer 2',
+              correct: false
+            },
+            {
+              text: 'Answer 3',
+              correct: true
+            },
+            {
+              text: 'Answer 4',
+              correct: false
+            }
+          ]
+        }
+      ],
+      currentQuestion: 0
     }
 
     // Here we're using React to render the outer body, so we just use the
