@@ -38,11 +38,13 @@ module.exports = React.createClass({
   // when everything has loaded
   render: function() {
     var curQuestion = this.state.questions[this.state.currentQuestion];
+    var nextDisabled = this.state.disabled || this.state.currentQuestion === this.state.questions.length - 1;
+    var prevDisabled = this.state.disabled || this.state.currentQuestion === 0;
 
     return div(null,
 
-      button({onClick: this.moveToPrev, disabled: this.state.disabled}, 'Prev'),
-      button({onClick: this.moveToNext, disabled: this.state.disabled}, 'Next'),
+      button({onClick: this.moveToPrev, disabled: prevDisabled}, 'Prev'),
+      button({onClick: this.moveToNext, disabled: nextDisabled}, 'Next'),
 
       Question({text: curQuestion.text, answers: curQuestion.answers})
     )
