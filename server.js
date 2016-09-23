@@ -1,9 +1,10 @@
 var http = require('http'),
     browserify = require('browserify'),
+    fs = require('fs'),
     literalify = require('literalify'),
     React = require('react'),
     ReactDOMServer = require('react-dom/server'),
-    DOM = React.DOM, html = DOM.html, body = DOM.body, div = DOM.div, script = DOM.script, link = DOM.link, head = DOM.head
+    DOM = React.DOM, html = DOM.html, body = DOM.body, div = DOM.div, script = DOM.script, link = DOM.link, head = DOM.head, meta = DOM.meta
 // This is our React component, shared by server and browser thanks to browserify
 App = React.createFactory(require('./App'))
 
@@ -12,7 +13,7 @@ App = React.createFactory(require('./App'))
 // '/bundle.js') This would obviously work similarly with any higher level
 // library (Express, etc)
 http.createServer(function (req, res) {
-
+console.log(req.url )
     // If we hit the homepage, then we want to serve up some HTML - including the
     // server-side rendered React component(s), as well as the script tags
     // pointing to the client-side code
@@ -103,15 +104,18 @@ http.createServer(function (req, res) {
         // language (or just a string) for the outer page template
         var htmlContent = ReactDOMServer.renderToStaticMarkup(html(null,
             head(null,
-                link({
-                    rel: 'stylesheet',
-                    type: 'text/css',
-                    href: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'
+                meta({
+                    charSet: 'utf-8'
                 }),
                 link({
                     rel: 'stylesheet',
                     type: 'text/css',
-                    href: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css'
+                    href: '/bootstrap.min.css'
+                }),
+                link({
+                    rel: 'stylesheet',
+                    type: 'text/css',
+                    href: '/style.css'
                 })
             ),
             body(null,
@@ -171,6 +175,22 @@ http.createServer(function (req, res) {
             .pipe(res)
 
         // Return 404 for all other requests
+    } else if (req.url == '/style.css') {
+        fs.readFile('public/style.css', function(error, content) {
+            if (error) {
+                throw error
+            }
+            res.setHeader('Content-Type', 'text/css')
+            res.end(content)
+        });
+    } else if (req.url == '/bootstrap.min.css') {
+        fs.readFile('public/bootstrap.min.css', function(error, content) {
+            if (error) {
+                throw error
+            }
+            res.setHeader('Content-Type', 'text/css')
+            res.end(content)
+        });
     } else {
         res.statusCode = 404
         res.end()
