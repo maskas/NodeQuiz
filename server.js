@@ -29,65 +29,68 @@ http.createServer(function (req, res) {
         var props = {
             questions: [
                 {
-                    text: 'Item 0',
+                    id: 1,
+                    text: 'Question 1',
                     answers: [
                         {
-                            text: 'Answer 1',
-                            correct: false
+                            id: 1,
+                            text: 'Answer 1-1'
                         },
                         {
-                            text: 'Answer 2',
-                            correct: false
+                            id: 1,
+                            text: 'Answer 1-2'
                         },
                         {
-                            text: 'Answer 3',
-                            correct: true
+                            id: 1,
+                            text: 'Answer 1-3'
                         },
                         {
-                            text: 'Answer 4',
-                            correct: false
+                            id: 1,
+                            text: 'Answer 1-4'
                         }
                     ]
                 },
                 {
-                    text: 'Item </script>',
+                    id: 2,
+                    text: 'Question 2',
                     answers: [
                         {
-                            text: 'Answer 1 </script>',
-                            correct: false
+                            id: 1,
+                            text: 'Answer 2-1'
                         },
                         {
-                            text: 'Answer 2',
-                            correct: false
+                            id: 1,
+                            text: 'Answer 2-2'
                         },
                         {
-                            text: 'Answer 3',
-                            correct: true
+                            id: 1,
+                            text: 'Answer 2-3'
                         },
                         {
-                            text: 'Answer 4',
-                            correct: false
+                            id: 1,
+                            text: 'Answer 2-4'
                         }
                     ]
                 },
                 {
-                    text: 'Item <!--inject!-->',
+                    id: 3,
+                    text: 'Question 3 </script><!--inject!-->',
                     answers: [
                         {
-                            text: 'Answer 1 <!--inject!-->',
-                            correct: false
+                            id: 1,
+                            text: 'Answer 3-1 </script><!--inject!-->'
                         },
                         {
-                            text: 'Answer 2',
-                            correct: false
+                            id: 1,
+                            text: 'Answer 3-2'
                         },
                         {
-                            text: 'Answer 3',
-                            correct: true
+                            id: 1,
+                            text: 'Answer 3-3'
                         },
                         {
-                            text: 'Answer 4',
-                            correct: false
+                            id: 1,
+                            text: 'Answer 3-4'
                         }
                     ]
                 }
@@ -116,7 +119,9 @@ http.createServer(function (req, res) {
                 // pass our data in as `props`. This div is the same one that the client
                 // will "render" into on the browser from browser.js
                 div({
-                    id: 'content', dangerouslySetInnerHTML: {
+                    id: 'content',
+                    class: 'wrapper',
+                    dangerouslySetInnerHTML: {
                         __html: ReactDOMServer.renderToString(App(props))
                     }
                 }),

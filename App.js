@@ -1,6 +1,6 @@
 var React = require('react'),
     Question = React.createFactory(require('./Question')),
-    DOM = React.DOM, div = DOM.div, button = DOM.button, ul = DOM.ul, li = DOM.li
+    DOM = React.DOM, div = DOM.div, button = DOM.button, h1 = DOM.h1
 
 // This is just a simple example of a component that can be rendered on both
 // the server and browser
@@ -42,7 +42,7 @@ module.exports = React.createClass({
     var prevDisabled = this.state.disabled || this.state.currentQuestion === 0;
 
     return div(null,
-
+      h1(null, 'Super Quiz'),
       button({class: 'btn btn-default', onClick: this.moveToPrev, disabled: prevDisabled}, 'Prev'),
       button({onClick: this.moveToNext, disabled: nextDisabled}, 'Next'),
 
