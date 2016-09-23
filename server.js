@@ -37,15 +37,15 @@ http.createServer(function (req, res) {
                             text: 'Answer 1-1'
                         },
                         {
-                            id: 1,
+                            id: 2,
                             text: 'Answer 1-2'
                         },
                         {
-                            id: 1,
+                            id: 3,
                             text: 'Answer 1-3'
                         },
                         {
-                            id: 1,
+                            id: 4,
                             text: 'Answer 1-4'
                         }
                     ]
@@ -55,19 +55,19 @@ http.createServer(function (req, res) {
                     text: 'Question 2',
                     answers: [
                         {
-                            id: 1,
+                            id: 5,
                             text: 'Answer 2-1'
                         },
                         {
-                            id: 1,
+                            id: 6,
                             text: 'Answer 2-2'
                         },
                         {
-                            id: 1,
+                            id: 7,
                             text: 'Answer 2-3'
                         },
                         {
-                            id: 1,
+                            id: 8,
                             text: 'Answer 2-4'
                         }
                     ]
@@ -77,19 +77,19 @@ http.createServer(function (req, res) {
                     text: 'Question 3 </script><!--inject!-->',
                     answers: [
                         {
-                            id: 1,
+                            id: 9,
                             text: 'Answer 3-1 </script><!--inject!-->'
                         },
                         {
-                            id: 1,
+                            id: 10,
                             text: 'Answer 3-2'
                         },
                         {
-                            id: 1,
+                            id: 11,
                             text: 'Answer 3-3'
                         },
                         {
-                            id: 1,
+                            id: 12,
                             text: 'Answer 3-4'
                         }
                     ]
