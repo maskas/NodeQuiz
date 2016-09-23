@@ -43,7 +43,7 @@ module.exports = React.createClass({
 
     return div(null,
 
-      button({onClick: this.moveToPrev, disabled: prevDisabled}, 'Prev'),
+      button({class: 'btn btn-default', onClick: this.moveToPrev, disabled: prevDisabled}, 'Prev'),
       button({onClick: this.moveToNext, disabled: nextDisabled}, 'Next'),
 
       Question({text: curQuestion.text, answers: curQuestion.answers})
