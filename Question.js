@@ -1,5 +1,5 @@
 var React = require('react'),
-    DOM = React.DOM, div = DOM.div, button = DOM.button, ul = DOM.ul, li = DOM.li, input = DOM.input, label = DOM.label
+    DOM = React.DOM, div = DOM.div, button = DOM.button, ul = DOM.ul, li = DOM.li, input = DOM.input, label = DOM.label, p = DOM.p, a = DOM.a
 
 // This is just a simple example of a component that can be rendered on both
 // the server and browser
@@ -30,8 +30,8 @@ module.exports = React.createClass({
     return div(null,
 
       div(null, this.state.text),
-      ul({children: this.state.answers.map(function(answer) {
-        return li(null, label(null, input({type: 'radio', name: 'answer', value: answer.id}), answer.text))
+      ul({className: 'nav nav-pills nav-stacked', children: this.state.answers.map(function(answer) {
+        return li({role: 'presentation'}, a(null, answer.text))
       })})
 
     )

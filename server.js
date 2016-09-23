@@ -120,7 +120,7 @@ http.createServer(function (req, res) {
                 // will "render" into on the browser from browser.js
                 div({
                     id: 'content',
-                    class: 'wrapper',
+                    className: 'wrapper',
                     dangerouslySetInnerHTML: {
                         __html: ReactDOMServer.renderToString(App(props))
                     }

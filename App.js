@@ -43,8 +43,8 @@ module.exports = React.createClass({
 
     return div(null,
       h1(null, 'Super Quiz'),
-      button({class: 'btn btn-default', onClick: this.moveToPrev, disabled: prevDisabled}, 'Prev'),
-      button({onClick: this.moveToNext, disabled: nextDisabled}, 'Next'),
+      button({className: 'btn btn-default', onClick: this.moveToPrev, disabled: prevDisabled}, 'Prev'),
+      button({className: 'btn btn-primary', onClick: this.moveToNext, disabled: nextDisabled}, 'Next'),
 
       Question({text: curQuestion.text, answers: curQuestion.answers})
     )
