@@ -3,7 +3,7 @@ var http = require('http'),
     literalify = require('literalify'),
     React = require('react'),
     ReactDOMServer = require('react-dom/server'),
-    DOM = React.DOM, body = DOM.body, div = DOM.div, script = DOM.script,
+    DOM = React.DOM, html = DOM.html, body = DOM.body, div = DOM.div, script = DOM.script,
     // This is our React component, shared by server and browser thanks to browserify
     App = React.createFactory(require('./App'))
 
@@ -38,8 +38,7 @@ http.createServer(function(req, res) {
     // Here we're using React to render the outer body, so we just use the
     // simpler renderToStaticMarkup function, but you could use any templating
     // language (or just a string) for the outer page template
-    var html = ReactDOMServer.renderToStaticMarkup(body(null,
-
+    var htmlContent = ReactDOMServer.renderToStaticMarkup(html(null, body(null,
       // The actual server-side rendering of our component occurs here, and we
       // pass our data in as `props`. This div is the same one that the client
       // will "render" into on the browser from browser.js
@@ -63,10 +62,10 @@ http.createServer(function(req, res) {
       // of browser.js and all its dependencies.
       // We serve this from the endpoint a few lines down.
       script({src: '/bundle.js'})
-    ))
+    )))
 
     // Return the page to the browser
-    res.end(html)
+    res.end(htmlContent)
 
   // This endpoint is hit when the browser is requesting bundle.js from the page above
   } else if (req.url == '/bundle.js') {
