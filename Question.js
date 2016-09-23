@@ -18,17 +18,20 @@ module.exports = React.createClass({
     this.setState({disabled: false})
   },
 
+  componentWillReceiveProps: function(nextProps) {
+    this.setState({text: nextProps.text, answers: nextProps.answers})
+  },
+
   // For ease of illustration, we just use the React JS methods directly
   // (no JSX compilation needed)
   // Note that we allow the button to be disabled initially, and then enable it
   // when everything has loaded
   render: function() {
-
     return div(null,
 
-      div(null, this.props.text),
-      ul({children: this.state.answers.map(function(item) {
-        return li(null, item.text)
+      div(null, this.state.text),
+      ul({children: this.state.answers.map(function(answer) {
+        return li(null, answer.text)
       })})
 
     )

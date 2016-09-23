@@ -19,26 +19,30 @@ module.exports = React.createClass({
     this.setState({disabled: false})
   },
 
-  // Then we just update the state whenever its clicked by adding a new item to
-  // the list - but you could imagine this being updated with the results of
-  // AJAX calls, etc
-  handleClick: function() {
+  moveToPrev: function(questionNumber) {
     this.setState({
-      items: this.state.items.concat('Item ' + this.state.items.length)
+      currentQuestion: this.state.currentQuestion - 1
     })
   },
+
+  moveToNext: function(questionNumber) {
+    this.setState({
+      currentQuestion: this.state.currentQuestion + 1
+    })
+  },
+
 
   // For ease of illustration, we just use the React JS methods directly
   // (no JSX compilation needed)
   // Note that we allow the button to be disabled initially, and then enable it
   // when everything has loaded
   render: function() {
-
-    var curQuestion = this.props.questions[this.props.currentQuestion];
+    var curQuestion = this.state.questions[this.state.currentQuestion];
 
     return div(null,
 
-      button({onClick: this.handleClick, disabled: this.state.disabled}, 'Add Item'),
+      button({onClick: this.moveToPrev, disabled: this.state.disabled}, 'Prev'),
+      button({onClick: this.moveToNext, disabled: this.state.disabled}, 'Next'),
 
       Question({text: curQuestion.text, answers: curQuestion.answers})
     )

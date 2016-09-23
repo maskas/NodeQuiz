@@ -53,7 +53,7 @@ http.createServer(function(req, res) {
           text: 'Item </script>',
           answers: [
             {
-              text: 'Answer 1',
+              text: 'Answer 1 </script>',
               correct: false
             },
             {
@@ -74,7 +74,7 @@ http.createServer(function(req, res) {
           text: 'Item <!--inject!-->',
           answers: [
             {
-              text: 'Answer 1',
+              text: 'Answer 1 <!--inject!-->',
               correct: false
             },
             {
