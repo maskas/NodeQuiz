@@ -20,7 +20,7 @@ var http = require('http'),
     querystring = require('querystring'),
 
     Quiz = React.createFactory(require('./App'));
-    app = new express();
+app = new express();
 
 
 app.use(bodyParser.json());
@@ -28,7 +28,7 @@ app.use(express.static('public'));
 
 var db = low('db.json');
 
-db.defaults({ questions: [] }).value();
+db.defaults({questions: []}).value();
 
 app.get('/', function (req, res) {
     res.setHeader('Content-Type', 'text/html');
