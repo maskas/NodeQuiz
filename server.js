@@ -5,6 +5,7 @@ var http = require('http'),
     fs = require('fs'),
     json = require('json'),
     literalify = require('literalify'),
+    low = require('lowdb'),
     React = require('react'),
     ReactDOMServer = require('react-dom/server'),
     DOM = React.DOM,
@@ -25,84 +26,15 @@ var http = require('http'),
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
+var db = low('db.json');
+
+db.defaults({ questions: [] }).value();
+
 app.get('/', function (req, res) {
     res.setHeader('Content-Type', 'text/html');
 
-    // `props` represents the data to be passed in to the React component for
-    // rendering - just as you would pass data, or expose variables in
-    // templates such as Jade or Handlebars.  We just use some dummy data
-    // here (with some potentially dangerous values for testing), but you could
-    // imagine this would be objects typically fetched async from a DB,
-    // filesystem or API, depending on the logged-in user, etc.
     var props = {
-        questions: [
-            {
-                id: 1,
-                text: 'Question 1',
-                answers: [
-                    {
-                        id: 1,
-                        text: 'Answer 1-1'
-                    },
-                    {
-                        id: 2,
-                        text: 'Answer 1-2'
-                    },
-                    {
-                        id: 3,
-                        text: 'Answer 1-3'
-                    },
-                    {
-                        id: 4,
-                        text: 'Answer 1-4'
-                    }
-                ]
-            },
-            {
-                id: 2,
-                text: 'Question 2',
-                answers: [
-                    {
-                        id: 5,
-                        text: 'Answer 2-1'
-                    },
-                    {
-                        id: 6,
-                        text: 'Answer 2-2'
-                    },
-                    {
-                        id: 7,
-                        text: 'Answer 2-3'
-                    },
-                    {
-                        id: 8,
-                        text: 'Answer 2-4'
-                    }
-                ]
-            },
-            {
-                id: 3,
-                text: 'Question 3 </script><!--inject!-->',
-                answers: [
-                    {
-                        id: 9,
-                        text: 'Answer 3-1 </script><!--inject!-->'
-                    },
-                    {
-                        id: 10,
-                        text: 'Answer 3-2'
-                    },
-                    {
-                        id: 11,
-                        text: 'Answer 3-3'
-                    },
-                    {
-                        id: 12,
-                        text: 'Answer 3-4'
-                    }
-                ]
-            }
-        ],
+        questions: db.get('questions').value(),
         currentQuestion: 0
     };
 
@@ -190,11 +122,14 @@ app.post('/submit', function (req, res) {
 
     //store to DB req.body.selectedAnswers
 
-    var correctAnswers = {
-        1: 1,
-        2: 5,
-        3: 9
-    };
+    var questions = db.get('questions').value();
+
+    var correctAnswers = {};
+
+    for (var i = 0; i < questions.length; i++) {
+        var question = questions[i];
+        correctAnswers[question.id] = question.correctAnswerId;
+    }
 
     res.end(JSON.stringify({correctAnswers: correctAnswers}));
 });

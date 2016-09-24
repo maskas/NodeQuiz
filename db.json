@@ -1,0 +1,80 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "text": "1 == \"1\"",
+      "answers": [
+        {
+          "id": 1,
+          "text": "true"
+        },
+        {
+          "id": 2,
+          "text": "false"
+        },
+        {
+          "id": 3,
+          "text": "NaN"
+        }
+      ],
+      "correctAnswerId": 1
+    },
+    {
+      "id": 2,
+      "text": "Array(3)==\",,\"",
+      "answers": [
+        {
+          "id": 1,
+          "text": "true"
+        },
+        {
+          "id": 2,
+          "text": "false"
+        },
+        {
+          "id": 3,
+          "text": "NaN"
+        }
+      ],
+      "correctAnswerId": 1
+    },
+    {
+      "id": 3,
+      "text": "[0]==![0]",
+      "answers": [
+        {
+          "id": 1,
+          "text": "true"
+        },
+        {
+          "id": 2,
+          "text": "false"
+        },
+        {
+          "id": 3,
+          "text": "NaN"
+        }
+      ],
+      "correctAnswerId": 1
+    },
+    {
+      "id": 4,
+      "text": "1^5==15",
+      "answers": [
+        {
+          "id": 1,
+          "text": "true"
+        },
+        {
+          "id": 2,
+          "text": "false"
+        },
+        {
+          "id": 3,
+          "text": "1"
+        }
+      ],
+      "correctAnswerId": 3
+    }
+  ]
+}
