@@ -2,6 +2,12 @@ h1 {
     margin-left: 50px;
 }
 
+.wrapper {
+    max-width: 550px;
+    margin: auto;
+    margin-top: 50px;
+}
+
 .question {
     margin-bottom: 40px;
 }
@@ -15,8 +21,29 @@ h1 {
     cursor: pointer;
 }
 
-.wrapper {
-    max-width: 550px;
-    margin: auto;
-    margin-top: 50px;
+.answers li a:hover {
+    background: none;
+}
+
+.answers li a {
+    color: #333;
+    font-size: 18px;
+}
+
+.answers li.correct {
+    background-color: #518640;
+}
+
+.answers li.incorrect {
+    background-color: #af0128;
+}
+
+.answers li.incorrect a,
+.answers li.correct a{
+    color: #fff;
+}
+
+.complete .answers li a:hover {
+    background: none;
+    cursor: default;
 }

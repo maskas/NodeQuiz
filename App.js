@@ -12,7 +12,12 @@ module.exports = React.createClass({
   // was first rendered. We also want the button to be disabled until the
   // component has fully mounted on the DOM
   getInitialState: function() {
-    return {questions: this.props.questions, currentQuestion: this.props.currentQuestion, disabled: true}
+    return {
+      questions: this.props.questions,
+      currentQuestion: this.props.currentQuestion,
+      correctAnswers: {},
+      disabled: true
+    }
   },
 
   // Once the component has been mounted, we can enable the button
@@ -39,10 +44,18 @@ module.exports = React.createClass({
       selectedAnswers[question.id] = question.selectedAnswerId
     });
 
+    var context = this;
     $.ajax({
       type: 'POST',
+      dataType: 'json',
       url: '/submit',
-      data: {selectedAnswers: selectedAnswers}
+      data: {selectedAnswers: selectedAnswers},
+      success: function (data) {
+        console.log(data);
+        context.setState({
+          correctAnswers: data.correctAnswers
+        })
+      }
     })
   },
 
@@ -63,14 +76,22 @@ module.exports = React.createClass({
     var showNextButton = this.state.currentQuestion !== this.state.questions.length - 1;
     var showPrevButton = this.state.currentQuestion !== 0;
     var showSubmitButton = !showNextButton;
+    var correctAnswerId = this.state.correctAnswers[curQuestion.id];
 
-    return div(null,
+    className = 'in-progress'
+
+    if (correctAnswerId) {
+      className = 'complete'
+    }
+
+    return div({className: className},
 
       Question({
         answerSelectCallback: this.handleAnswerSelect,
         selectedAnswerId: curQuestion.selectedAnswerId,
         text: curQuestion.text,
-        answers: curQuestion.answers
+        answers: curQuestion.answers,
+        correctAnswerId: correctAnswerId
       }),
       showPrevButton ? button({
         className: 'btn btn-primary',

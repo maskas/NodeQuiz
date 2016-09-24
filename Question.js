@@ -1,5 +1,10 @@
 var React = require('react'),
-    DOM = React.DOM, div = DOM.div, button = DOM.button, ul = DOM.ul, li = DOM.li, input = DOM.input, label = DOM.label, p = DOM.p, a = DOM.a, h2 = DOM.h2
+    DOM = React.DOM,
+    div = DOM.div,
+    ul = DOM.ul,
+    li = DOM.li,
+    a = DOM.a,
+    h2 = DOM.h2;
 
 // This is just a simple example of a component that can be rendered on both
 // the server and browser
@@ -14,6 +19,7 @@ module.exports = React.createClass({
       text: this.props.text,
       answers: this.props.answers,
       selectedAnswerId: this.props.selectedAnswerId,
+      correctAnswerId: this.props.correctAnswerId,
       disabled: true
     }
   },
@@ -29,7 +35,8 @@ module.exports = React.createClass({
     this.setState({
       text: nextProps.text,
       answers: nextProps.answers,
-      selectedAnswerId: nextProps.selectedAnswerId
+      selectedAnswerId: nextProps.selectedAnswerId,
+      correctAnswerId: nextProps.correctAnswerId
     })
   },
 
@@ -42,13 +49,30 @@ module.exports = React.createClass({
   // Note that we allow the button to be disabled initially, and then enable it
   // when everything has loaded
   render: function() {
+    console.log(this.state.correctAnswerId);
     return div(null,
 
       h2({className: 'question'}, this.state.text),
       ul({className: 'nav nav-pills nav-stacked answers', children: this.state.answers.map(function(answer) {
+        var className = '';
+        if (this.state.correctAnswerId) {
+          //show correct / incorrect answers
+          if (this.state.correctAnswerId  === answer.id) {
+            className = 'correct'
+          }
+          if (this.state.selectedAnswerId  === answer.id && this.state.selectedAnswerId !== this.state.correctAnswerId) {
+            className = 'incorrect'
+          }
+        } else {
+          //show selected answers as we don't know the right answers yet
+          if (this.state.selectedAnswerId === answer.id) {
+            className = 'active'
+          }
+        }
+
         return li({
-          onClick: this.handleClick.bind(this, answer.id), role: 'presentation',
-          className: this.state.selectedAnswerId === answer.id ? 'active' : ''
+          onClick: this.state.correctanswerId? null : this.handleClick.bind(this, answer.id), role: 'presentation',
+          className: className
         },
             a(null, answer.text)
         )
