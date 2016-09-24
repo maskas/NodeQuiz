@@ -5,18 +5,24 @@ var http = require('http'),
     literalify = require('literalify'),
     React = require('react'),
     ReactDOMServer = require('react-dom/server'),
-    DOM = React.DOM, html = DOM.html, body = DOM.body, div = DOM.div, script = DOM.script, link = DOM.link, head = DOM.head, meta = DOM.meta, h1 = DOM.h1,
+    DOM = React.DOM,
+    html = DOM.html,
+    body = DOM.body,
+    div = DOM.div,
+    script = DOM.script,
+    link = DOM.link,
+    head = DOM.head,
+    meta = DOM.meta,
+    h1 = DOM.h1,
     querystring = require('querystring'),
-// This is our React component, shared by server and browser thanks to browserify
-    Quiz = React.createFactory(require('./App'))
 
+    Quiz = React.createFactory(require('./App'));
     app = new express();
 
-//app.use(express.bodyParser());
-
+app.use(express.static('public'));
 
 app.get('/', function (req, res) {
-    res.setHeader('Content-Type', 'text/html')
+    res.setHeader('Content-Type', 'text/html');
 
     // `props` represents the data to be passed in to the React component for
     // rendering - just as you would pass data, or expose variables in
@@ -94,7 +100,7 @@ app.get('/', function (req, res) {
             }
         ],
         currentQuestion: 0
-    }
+    };
 
     // Here we're using React to render the outer body, so we just use the
     // simpler renderToStaticMarkup function, but you could use any templating
@@ -148,7 +154,7 @@ app.get('/', function (req, res) {
             // of browser.js and all its dependencies.
             // We serve this from the endpoint a few lines down.
             script({src: '/bundle.js'})
-        )))
+        )));
 
     // Return the page to the browser
     res.end(htmlContent)
@@ -170,33 +176,10 @@ app.get('/bundle.js', function (req, res) {
         .add('./browser.js')
         .transform(literalify.configure({
             'react': 'window.React',
-            'react-dom': 'window.ReactDOM',
+            'react-dom': 'window.ReactDOM'
         }))
         .bundle()
         .pipe(res)
-});
-
-
-
-app.get('/style.css', function (req, res) {
-    fs.readFile('public/style.css', function(error, content) {
-        if (error) {
-            throw error
-        }
-        res.setHeader('Content-Type', 'text/css')
-        res.end(content)
-    });
-});
-
-
-app.get('/bootstrap.min.css', function (req, res) {
-    fs.readFile('public/bootstrap.min.css', function(error, content) {
-        if (error) {
-            throw error
-        }
-        res.setHeader('Content-Type', 'text/css')
-        res.end(content)
-    });
 });
 
 app.post('/submit', function (req, res) {
