@@ -29,8 +29,8 @@ module.exports = React.createClass({
   render: function() {
     return div(null,
 
-      h2(null, this.state.text),
-      ul({className: 'nav nav-pills nav-stacked', children: this.state.answers.map(function(answer) {
+      h2({className: 'question'}, this.state.text),
+      ul({className: 'nav nav-pills nav-stacked answers', children: this.state.answers.map(function(answer) {
         return li({role: 'presentation'}, a(null, answer.text))
       })})
 

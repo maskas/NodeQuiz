@@ -1,3 +1,20 @@
+h1 {
+    margin-left: 50px;
+}
+
+.question {
+    margin-bottom: 40px;
+}
+
+.answers {
+    margin-bottom: 40px;
+}
+
+.answers li {
+    border: 1px solid #f6f6f6;
+    cursor: pointer;
+}
+
 .wrapper {
     max-width: 550px;
     margin: auto;

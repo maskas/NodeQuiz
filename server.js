@@ -4,7 +4,7 @@ var http = require('http'),
     literalify = require('literalify'),
     React = require('react'),
     ReactDOMServer = require('react-dom/server'),
-    DOM = React.DOM, html = DOM.html, body = DOM.body, div = DOM.div, script = DOM.script, link = DOM.link, head = DOM.head, meta = DOM.meta
+    DOM = React.DOM, html = DOM.html, body = DOM.body, div = DOM.div, script = DOM.script, link = DOM.link, head = DOM.head, meta = DOM.meta, h1 = DOM.h1
 // This is our React component, shared by server and browser thanks to browserify
 App = React.createFactory(require('./App'))
 
@@ -122,6 +122,9 @@ console.log(req.url )
                 // The actual server-side rendering of our component occurs here, and we
                 // pass our data in as `props`. This div is the same one that the client
                 // will "render" into on the browser from browser.js
+
+                div({className: 'page-header'}, h1(null, 'Super Quiz')),
+
                 div({
                     id: 'content',
                     className: 'wrapper',

@@ -42,7 +42,7 @@ module.exports = React.createClass({
     var prevDisabled = this.state.disabled || this.state.currentQuestion === 0;
 
     return div(null,
-      div({onClick: this.moveToNext, className: 'page-header'}, h1(null, 'Super Quiz')),
+
       Question({onClick: this.moveToNext, text: curQuestion.text, answers: curQuestion.answers}),
       button({className: 'btn btn-link', onClick: this.moveToPrev, disabled: prevDisabled}, '← Prev'),
       button({className: 'btn btn-primary pull-right', onClick: this.moveToNext, disabled: nextDisabled}, 'Next  →')
