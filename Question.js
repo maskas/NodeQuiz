@@ -10,16 +10,33 @@ module.exports = React.createClass({
   // was first rendered. We also want the button to be disabled until the
   // component has fully mounted on the DOM
   getInitialState: function() {
-    return {text: this.props.text, answers: this.props.answers, disabled: true}
+    return {
+      text: this.props.text,
+      answers: this.props.answers,
+      selectedAnswerId: this.props.selectedAnswerId,
+      disabled: true
+    }
   },
 
   // Once the component has been mounted, we can enable the button
   componentDidMount: function() {
-    this.setState({disabled: false})
+
+    this.setState({
+      disabled: false
+    })
+    console.log(this)
   },
 
   componentWillReceiveProps: function(nextProps) {
-    this.setState({text: nextProps.text, answers: nextProps.answers})
+    this.setState({
+      text: nextProps.text,
+      answers: nextProps.answers,
+      selectedAnswerId: nextProps.selectedAnswerId
+    })
+  },
+
+  handleClick: function(answerId) {
+    this.props.answerSelectCallback(answerId)
   },
 
   // For ease of illustration, we just use the React JS methods directly
@@ -31,8 +48,13 @@ module.exports = React.createClass({
 
       h2({className: 'question'}, this.state.text),
       ul({className: 'nav nav-pills nav-stacked answers', children: this.state.answers.map(function(answer) {
-        return li({role: 'presentation'}, a(null, answer.text))
-      })})
+        return li({
+          onClick: this.handleClick.bind(this, answer.id), role: 'presentation',
+          className: this.state.selectedAnswerId === answer.id ? 'active' : ''
+        },
+            a(null, answer.text)
+        )
+      }, this)})
 
     )
   },

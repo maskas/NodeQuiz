@@ -31,6 +31,18 @@ module.exports = React.createClass({
     })
   },
 
+  onClick: function()
+  {
+    console.log('app click');
+  },
+
+  handleAnswerSelect: function(answerId) {
+    var questions = this.state.questions;
+    questions[this.state.currentQuestion].selectedAnswerId = answerId;
+    this.setState({
+      questions: questions
+    })
+  },
 
   // For ease of illustration, we just use the React JS methods directly
   // (no JSX compilation needed)
@@ -43,9 +55,26 @@ module.exports = React.createClass({
 
     return div(null,
 
-      Question({onClick: this.moveToNext, text: curQuestion.text, answers: curQuestion.answers}),
-      button({className: 'btn btn-link', onClick: this.moveToPrev, disabled: prevDisabled}, '← Prev'),
-      button({className: 'btn btn-primary pull-right', onClick: this.moveToNext, disabled: nextDisabled}, 'Next  →')
+      Question({
+        answerSelectCallback: this.handleAnswerSelect,
+        selectedAnswerId: curQuestion.selectedAnswerId,
+        text: curQuestion.text,
+        answers: curQuestion.answers
+      }),
+      button({
+        className: 'btn btn-link',
+        onClick: this.moveToPrev,
+        disabled: prevDisabled
+      },
+          '← Prev'
+      ),
+      button({
+        className: 'btn btn-primary pull-right',
+        onClick: this.moveToNext,
+        disabled: nextDisabled
+      },
+          'Next  →'
+      )
     )
   }
 })
