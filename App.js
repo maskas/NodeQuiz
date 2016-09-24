@@ -1,5 +1,6 @@
 var React = require('react'),
     Question = React.createFactory(require('./Question')),
+    $ = require('jquery'),
     DOM = React.DOM, div = DOM.div, button = DOM.button, h1 = DOM.h1
 
 // This is just a simple example of a component that can be rendered on both
@@ -33,7 +34,16 @@ module.exports = React.createClass({
 
   submit: function()
   {
+    var selectedAnswers = {};
+    this.state.questions.map(function(question) {
+      selectedAnswers[question.id] = question.selectedAnswerId
+    });
 
+    $.ajax({
+      type: 'POST',
+      url: '/submit',
+      data: {selectedAnswers: selectedAnswers}
+    })
   },
 
   handleAnswerSelect: function(answerId) {

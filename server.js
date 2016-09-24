@@ -4,7 +4,8 @@ var http = require('http'),
     literalify = require('literalify'),
     React = require('react'),
     ReactDOMServer = require('react-dom/server'),
-    DOM = React.DOM, html = DOM.html, body = DOM.body, div = DOM.div, script = DOM.script, link = DOM.link, head = DOM.head, meta = DOM.meta, h1 = DOM.h1
+    DOM = React.DOM, html = DOM.html, body = DOM.body, div = DOM.div, script = DOM.script, link = DOM.link, head = DOM.head, meta = DOM.meta, h1 = DOM.h1,
+    querystring = require('querystring')
 // This is our React component, shared by server and browser thanks to browserify
 App = React.createFactory(require('./App'))
 
@@ -17,7 +18,7 @@ console.log(req.url )
     // If we hit the homepage, then we want to serve up some HTML - including the
     // server-side rendered React component(s), as well as the script tags
     // pointing to the client-side code
-    if (req.url == '/') {
+    if (req.url === '/') {
 
         res.setHeader('Content-Type', 'text/html')
 
@@ -157,9 +158,33 @@ console.log(req.url )
         res.end(htmlContent)
 
         // This endpoint is hit when the browser is requesting bundle.js from the page above
-    } else if (req.url == '/bundle.js') {
+    } else if (req.url === '/submit' && req.method === 'POST') {
 
-        res.setHeader('Content-Type', 'text/javascript')
+        var fullBody = '';
+
+        req.on('data', function(chunk) {
+            // append the current chunk of data to the fullBody variable
+            fullBody += chunk.toString();
+        });
+
+        req.on('end', function() {
+            var decodedBody = querystring.parse(fullBody);
+            console.log(decodedBody);
+            var correctAnswers = {
+                1: 1,
+                2: 5,
+                3: 9
+            };
+
+            res.setHeader('Content-Type', 'application/json');
+            var json = JSON.stringify({
+                correctAnswers: correctAnswers
+            });
+
+        });
+    } else if (req.url === '/bundle.js') {
+
+        res.setHeader('Content-Type', 'text/javascript');
 
         // Here we invoke browserify to package up browser.js and everything it requires.
         // DON'T do it on the fly like this in production - it's very costly -
@@ -176,9 +201,7 @@ console.log(req.url )
             }))
             .bundle()
             .pipe(res)
-
-        // Return 404 for all other requests
-    } else if (req.url == '/style.css') {
+    } else if (req.url === '/style.css') {
         fs.readFile('public/style.css', function(error, content) {
             if (error) {
                 throw error
@@ -186,7 +209,7 @@ console.log(req.url )
             res.setHeader('Content-Type', 'text/css')
             res.end(content)
         });
-    } else if (req.url == '/bootstrap.min.css') {
+    } else if (req.url === '/bootstrap.min.css') {
         fs.readFile('public/bootstrap.min.css', function(error, content) {
             if (error) {
                 throw error
@@ -195,6 +218,7 @@ console.log(req.url )
             res.end(content)
         });
     } else {
+        // Return 404 for all other requests
         res.statusCode = 404
         res.end()
     }
