@@ -23,10 +23,6 @@ var http = require('http'),
 
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-app.use(bodyParser.urlencoded());
 app.use(express.static('public'));
 
 app.get('/', function (req, res) {
