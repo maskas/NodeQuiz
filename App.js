@@ -75,9 +75,9 @@ module.exports = React.createClass({
     var showNextButton = this.state.currentQuestion !== this.state.questions.length - 1;
     var showPrevButton = this.state.currentQuestion !== 0;
     var correctAnswerId = this.state.correctAnswers[curQuestion.id];
-    var showSubmitButton = !showNextButton && !this.state.correctAnswerId;
+    var showSubmitButton = !showNextButton && !correctAnswerId;
 
-    className = 'in-progress'
+    className = 'in-progress';
 
     if (correctAnswerId) {
       className = 'complete'
@@ -113,4 +113,4 @@ module.exports = React.createClass({
       ) :null
     )
   }
-})
+});
