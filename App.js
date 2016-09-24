@@ -62,7 +62,7 @@ module.exports = React.createClass({
         answers: curQuestion.answers
       }),
       button({
-        className: 'btn btn-link',
+        className: 'btn btn-primary',
         onClick: this.moveToPrev,
         disabled: prevDisabled
       },
