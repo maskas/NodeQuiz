@@ -13,9 +13,11 @@
   "author": "Michael Hart <michael.hart.au@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "browserify": "^13.1.0",
     "express": "^4.14.0",
     "jquery": "^3.1.1",
+    "json": "^9.0.4",
     "literalify": "^0.4.0",
     "querystring": "^0.2.0",
     "react": "^15.3.0",

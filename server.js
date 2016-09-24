@@ -1,7 +1,9 @@
 var http = require('http'),
+    bodyParser = require('body-parser'),
     browserify = require('browserify'),
     express = require('express'),
     fs = require('fs'),
+    json = require('json'),
     literalify = require('literalify'),
     React = require('react'),
     ReactDOMServer = require('react-dom/server'),
@@ -19,6 +21,12 @@ var http = require('http'),
     Quiz = React.createFactory(require('./App'));
     app = new express();
 
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.urlencoded());
 app.use(express.static('public'));
 
 app.get('/', function (req, res) {
@@ -183,28 +191,16 @@ app.get('/bundle.js', function (req, res) {
 });
 
 app.post('/submit', function (req, res) {
-    var fullBody = '';
 
-    req.on('data', function(chunk) {
-        // append the current chunk of data to the fullBody variable
-        fullBody += chunk.toString();
-    });
+    //store to DB req.body.selectedAnswers
 
-    req.on('end', function() {
-        var decodedBody = querystring.parse(fullBody);
-        console.log(decodedBody);
-        var correctAnswers = {
-            1: 1,
-            2: 5,
-            3: 9
-        };
+    var correctAnswers = {
+        1: 1,
+        2: 5,
+        3: 9
+    };
 
-        res.setHeader('Content-Type', 'application/json');
-        var json = JSON.stringify({
-            correctAnswers: correctAnswers
-        });
-
-    });
+    res.end(JSON.stringify({correctAnswers: correctAnswers}));
 });
 
 app.listen(3000);
