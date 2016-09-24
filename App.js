@@ -31,9 +31,9 @@ module.exports = React.createClass({
     })
   },
 
-  onClick: function()
+  submit: function()
   {
-    console.log('app click');
+
   },
 
   handleAnswerSelect: function(answerId) {
@@ -50,8 +50,9 @@ module.exports = React.createClass({
   // when everything has loaded
   render: function() {
     var curQuestion = this.state.questions[this.state.currentQuestion];
-    var nextDisabled = this.state.disabled || this.state.currentQuestion === this.state.questions.length - 1;
-    var prevDisabled = this.state.disabled || this.state.currentQuestion === 0;
+    var showNextButton = this.state.currentQuestion !== this.state.questions.length - 1;
+    var showPrevButton = this.state.currentQuestion !== 0;
+    var showSubmitButton = !showNextButton;
 
     return div(null,
 
@@ -61,20 +62,25 @@ module.exports = React.createClass({
         text: curQuestion.text,
         answers: curQuestion.answers
       }),
-      button({
+      showPrevButton ? button({
         className: 'btn btn-primary',
-        onClick: this.moveToPrev,
-        disabled: prevDisabled
+        onClick: this.moveToPrev
       },
           '← Prev'
-      ),
-      button({
+      ) : null,
+      showNextButton? button({
         className: 'btn btn-primary pull-right',
-        onClick: this.moveToNext,
-        disabled: nextDisabled
+        onClick: this.moveToNext
       },
           'Next  →'
-      )
+      ) : null,
+      showSubmitButton ? button({
+            className: 'btn btn-success pull-right',
+            onClick: this.submit,
+            visible: false
+          },
+          'Submit'
+      ) :null
     )
   }
 })

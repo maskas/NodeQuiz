@@ -20,11 +20,9 @@ module.exports = React.createClass({
 
   // Once the component has been mounted, we can enable the button
   componentDidMount: function() {
-
     this.setState({
       disabled: false
     })
-    console.log(this)
   },
 
   componentWillReceiveProps: function(nextProps) {
