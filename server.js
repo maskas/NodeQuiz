@@ -23,18 +23,26 @@ var http = require('http'),
 app = new express();
 
 
-app.use(bodyParser.json());
 app.use(express.static('public'));
 
-var db = low('db.json');
+// parse application/json
+app.use(bodyParser.json());
 
-db.defaults({questions: []}).value();
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+var dbQuestions = low('db-questions.json');
+var dbCandidates = low('db-candidates.json');
+
+dbQuestions.defaults({questions: []}).value();
+dbCandidates.defaults({candidates: []}).value();
 
 app.get('/', function (req, res) {
     res.setHeader('Content-Type', 'text/html');
 
     var props = {
-        questions: db.get('questions').value(),
+        questions: dbQuestions.get('questions').value(),
         currentQuestion: 0
     };
 
@@ -120,9 +128,12 @@ app.get('/bundle.js', function (req, res) {
 
 app.post('/submit', function (req, res) {
 
-    //store to DB req.body.selectedAnswers
+    console.log(req.body);
+    dbCandidates.get('candidates').push({
+        selectedAnswers: req.body.selectedAnswers
+    }).value();
 
-    var questions = db.get('questions').value();
+    var questions = dbQuestions.get('questions').value();
 
     var correctAnswers = {};
 

@@ -1,4 +1,5 @@
 /.idea
+/db-candidates.json
 node_modules
 npm-debug.log
 coverage*
