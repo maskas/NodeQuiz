@@ -134,7 +134,7 @@ app.get('/', function (req, res) {
             // pass our data in as `props`. This div is the same one that the client
             // will "render" into on the browser from browser.js
 
-            div({className: 'page-header'}, h1(null, 'Super Quiz')),
+            div({className: 'page-header'}, h1(null, 'JS GURU QUIZ')),
 
             div({
                 id: 'content',

@@ -51,7 +51,6 @@ module.exports = React.createClass({
       url: '/submit',
       data: {selectedAnswers: selectedAnswers},
       success: function (data) {
-        console.log(data);
         context.setState({
           correctAnswers: data.correctAnswers
         })
@@ -75,8 +74,8 @@ module.exports = React.createClass({
     var curQuestion = this.state.questions[this.state.currentQuestion];
     var showNextButton = this.state.currentQuestion !== this.state.questions.length - 1;
     var showPrevButton = this.state.currentQuestion !== 0;
-    var showSubmitButton = !showNextButton;
     var correctAnswerId = this.state.correctAnswers[curQuestion.id];
+    var showSubmitButton = !showNextButton && !this.state.correctAnswerId;
 
     className = 'in-progress'
 
