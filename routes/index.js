@@ -1,12 +1,13 @@
-var http = require('http'),
+var express = require('express'),
+    repository = require('./../repository'),
+    router = express.Router(),
+    http = require('http'),
     browserify = require('browserify'),
-    express = require('express'),
     fs = require('fs'),
     json = require('json'),
     literalify = require('literalify'),
     React = require('react'),
     ReactDOMServer = require('react-dom/server'),
-    repository = require('./../repository'),
     DOM = React.DOM,
     html = DOM.html,
     body = DOM.body,
@@ -20,8 +21,7 @@ var http = require('http'),
 
 Quiz = React.createFactory(require('./../component/App'));
 
-
-exports.index = function (req, res) {
+router.get('/', function(req, res) {
     res.setHeader('Content-Type', 'text/html');
 
     var props = {
@@ -69,8 +69,9 @@ exports.index = function (req, res) {
         )));
 
     res.end(htmlContent)
-};
+});
 
+module.exports = router;
 
 // A utility function to safely escape JSON for embedding in a <script> tag
 function safeStringify(obj) {

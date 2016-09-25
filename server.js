@@ -7,7 +7,7 @@ var http = require('http'),
     DOM = React.DOM,
     body = DOM.body,
     querystring = require('querystring'),
-    routes = require('./routes'),
+    index = require('./routes/index'),
     bundle = require('./routes/bundle'),
     submit = require('./routes/submit'),
     app = new express();
@@ -18,7 +18,7 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.get('/', routes.index);
+app.use('/', index);
 
 app.use('/bundle.js', bundle);
 
