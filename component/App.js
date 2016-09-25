@@ -48,13 +48,12 @@ module.exports = React.createClass({
                 selectedAnswers: selectedAnswers
             })
         })
-            .then(function(response){return response.json()})
-            .then(function(jsonResponse) {
-                context.setState({
-                    correctAnswers: jsonResponse.correctAnswers
-                });
-            })
-        ;
+        .then(function(response){return response.json()})
+        .then(function(jsonResponse) {
+            context.setState({
+                correctAnswers: jsonResponse.correctAnswers
+            });
+        });
 
     },
 
