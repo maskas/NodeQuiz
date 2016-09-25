@@ -10,6 +10,7 @@ module.exports = React.createClass({
 
     getInitialState: function () {
         return {
+            name: '',
             questions: this.props.questions,
             currentQuestionOffset: this.props.currentQuestion,
             correctAnswers: {},
@@ -34,7 +35,7 @@ module.exports = React.createClass({
         })
     },
 
-    submit: function () {
+    handleSubmit: function () {
         fetch('/submit', {
             method: 'POST',
             headers: {
@@ -57,6 +58,10 @@ module.exports = React.createClass({
 
     },
 
+    handleReset: function () {
+        this.setState(this.getInitialState())
+    },
+
     handleAnswerSelect: function (answerId) {
         var curQuestion = this.state.questions[this.state.currentQuestionOffset];
         var selectedAnswers = this.state.selectedAnswers;
@@ -77,6 +82,7 @@ module.exports = React.createClass({
         var curQuestion = this.state.questions[this.state.currentQuestionOffset];
         var correctAnswerId = this.state.correctAnswers[curQuestion.id];
         var showSubmitButton = Object.keys(this.state.selectedAnswers).length === this.state.questions.length && !correctAnswerId;
+        var showResetButton = correctAnswerId;
 
         var className = 'in-progress';
 
@@ -106,10 +112,19 @@ module.exports = React.createClass({
             showSubmitButton ? div({className: 'submit'},
                 button({
                         className: 'btn btn-success submit',
-                        onClick: this.submit,
+                        onClick: this.handleSubmit,
                         visible: false
                     },
                     'Submit'
+                )
+            ) : null,
+            showResetButton ? div({className: 'submit'},
+                button({
+                        className: 'btn btn-warning submit',
+                        onClick: this.handleReset,
+                        visible: false
+                    },
+                    'Reset'
                 )
             ) : null
         )
