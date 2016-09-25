@@ -1,18 +1,16 @@
 var http = require('http'),
     bodyParser = require('body-parser'),
-    browserify = require('browserify'),
     express = require('express'),
     fs = require('fs'),
     json = require('json'),
-    literalify = require('literalify'),
     React = require('react'),
     DOM = React.DOM,
     body = DOM.body,
     querystring = require('querystring'),
     repository = require('./repository'),
     routes = require('./routes'),
-
-app = new express();
+    bundle = require('./routes/bundle'),
+    app = new express();
 
 
 app.use(express.static('public'));
@@ -22,21 +20,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/', routes.index);
 
-
-app.get('/bundle.js', function (req, res) {
-
-    res.setHeader('Content-Type', 'text/javascript');
-
-    // DON'T DO THIS IN PRODUCTION :)
-    browserify()
-        .add('./browser.js')
-        .transform(literalify.configure({
-            'react': 'window.React',
-            'react-dom': 'window.ReactDOM'
-        }))
-        .bundle()
-        .pipe(res)
-});
+app.use('/bundle.js', bundle);
 
 app.post('/submit', function (req, res) {
     repository.storeCandidate({
