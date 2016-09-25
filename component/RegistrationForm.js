@@ -39,7 +39,11 @@ module.exports = React.createClass({
             h2({className: 'question'}, 'Please enter your full name'),
             form({onSubmit: this.handleSubmit},
                 div({className: "input-group " + (this.state.error ? 'has-error' : '')},
-                    input({onChange: this.handleNameChange, className: "form-control"}),
+                    input({
+                        onChange: this.handleNameChange,
+                        className: "form-control",
+                        autoFocus: "autofocus"
+                    }),
                     this.state.error ? p({
                             className: "text-danger"
                         },
