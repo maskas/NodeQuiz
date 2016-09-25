@@ -21,7 +21,7 @@ module.exports = React.createClass({
         this.setState({disabled: false})
     },
 
-    navigateTo: function(questionNumberOffset) {
+    navigateTo: function (questionNumberOffset) {
         if (questionNumberOffset < 0) {
             questionNumberOffset = 0;
         }
@@ -44,12 +44,14 @@ module.exports = React.createClass({
                 selectedAnswers: this.state.selectedAnswers
             })
         })
-        .then(function(response){return response.json()})
-        .then(function(jsonResponse) {
-            this.setState({
-                correctAnswers: jsonResponse.correctAnswers
-            });
-        }.bind(this));
+            .then(function (response) {
+                return response.json()
+            })
+            .then(function (jsonResponse) {
+                this.setState({
+                    correctAnswers: jsonResponse.correctAnswers
+                });
+            }.bind(this));
 
     },
 
