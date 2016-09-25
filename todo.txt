@@ -2,5 +2,5 @@
 - use jsx
 - use const / let where appropriate and other magic to make code easier to read
 - reflect current question in URL and preserve answers on refresh
-- user registration form
-- reset icon
+- disable actions until loaded
+

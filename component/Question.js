@@ -38,7 +38,7 @@ module.exports = React.createClass({
     },
 
     render: function () {
-        return div(null,
+        return div({className: "section"},
 
             h2({className: 'question'}, this.state.text),
             ul({

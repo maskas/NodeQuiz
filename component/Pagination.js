@@ -48,7 +48,7 @@ module.exports = React.createClass({
             pages.push(newItem)
         }
 
-        return div({className: "bs-component pagination-container"},
+        return div({className: "bs-component pagination-container section"},
                 ul({className: "pagination pagination", children: pages})
             )
     }
