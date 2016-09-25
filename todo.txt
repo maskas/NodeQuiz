@@ -1,0 +1,5 @@
+- implement compilation & jsx
+- use const / let where appropriate
+- reflect current question in URL and preserve answers on refresh
+- user registration form
+
