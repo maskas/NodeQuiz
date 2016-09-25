@@ -7,9 +7,9 @@ var http = require('http'),
     DOM = React.DOM,
     body = DOM.body,
     querystring = require('querystring'),
-    repository = require('./repository'),
     routes = require('./routes'),
     bundle = require('./routes/bundle'),
+    submit = require('./routes/submit'),
     app = new express();
 
 
@@ -22,22 +22,7 @@ app.get('/', routes.index);
 
 app.use('/bundle.js', bundle);
 
-app.post('/submit', function (req, res) {
-    repository.storeCandidate({
-        selectedAnswers: req.body.selectedAnswers
-    });
-
-    var questions = repository.getQuestions();
-
-    var correctAnswers = {};
-
-    for (var i = 0; i < questions.length; i++) {
-        var question = questions[i];
-        correctAnswers[question.id] = question.correctAnswerId;
-    }
-
-    res.end(JSON.stringify({correctAnswers: correctAnswers}));
-});
+app.use('/submit', submit);
 
 var port = 3000;
 if (process.env.SERVER_PORT) {
