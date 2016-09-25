@@ -1,0 +1,17 @@
+doctype html
+html(lang="en")
+  head
+    title=pageTitle
+    script(type='text/javascript').
+      var APP_PROPS=!{(props)}
+    meta(charset="utf-8")
+    link(rel="stylesheet", type="text/css", href="/bootstrap.min.css")
+    link(rel="stylesheet", type="text/css", href="/style.css")
+  body
+    div(class="page-header")
+        h1=pageTitle
+    div(id="content", class="wrapper")!= content
+    script(src="//cdnjs.cloudflare.com/ajax/libs/react/15.3.0/react.min.js")
+    script(src="//cdnjs.cloudflare.com/ajax/libs/react/15.3.0/react-dom.min.js")
+    script(src="/bundle.js")
+
