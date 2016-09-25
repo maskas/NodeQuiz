@@ -43,3 +43,13 @@ h1 {
     background: none;
     cursor: default;
 }
+
+div.submit {
+    clear: both;
+    text-align: center;
+}
+
+button.submit {
+    clear: both;
+    margin: auto;
+}
