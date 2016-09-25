@@ -1,11 +1,7 @@
 var express = require('express'),
     repository = require('./../repository'),
     router = express.Router(),
-    http = require('http'),
-    browserify = require('browserify'),
-    fs = require('fs'),
     json = require('json'),
-    literalify = require('literalify'),
     React = require('react'),
     ReactDOMServer = require('react-dom/server'),
     DOM = React.DOM,
@@ -16,8 +12,7 @@ var express = require('express'),
     link = DOM.link,
     head = DOM.head,
     meta = DOM.meta,
-    h1 = DOM.h1,
-    querystring = require('querystring');
+    h1 = DOM.h1;
 
 Quiz = React.createFactory(require('./../component/App'));
 
