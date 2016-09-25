@@ -5,8 +5,7 @@ var express = require('express'),
     json = require('json'),
     React = require('react'),
     ReactDOMServer = require('react-dom/server'),
-
-Quiz = React.createFactory(require('./../component/App'));
+    Quiz = React.createFactory(require('./../component/App'));
 
 router.get('/', function(req, res) {
     res.setHeader('Content-Type', 'text/html');
