@@ -19,7 +19,7 @@ var http = require('http'),
     querystring = require('querystring'),
     repository = require('./repository'),
 
-    Quiz = React.createFactory(require('./App'));
+    Quiz = React.createFactory(require('./component/App'));
 app = new express();
 
 
