@@ -37,7 +37,6 @@ module.exports = React.createClass({
             selectedAnswers[question.id] = question.selectedAnswerId
         });
 
-        var context = this;
         fetch('/submit', {
             method: 'POST',
             headers: {
@@ -50,10 +49,10 @@ module.exports = React.createClass({
         })
         .then(function(response){return response.json()})
         .then(function(jsonResponse) {
-            context.setState({
+            this.setState({
                 correctAnswers: jsonResponse.correctAnswers
             });
-        });
+        }.bind(this));
 
     },
 
