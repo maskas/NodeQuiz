@@ -76,7 +76,7 @@ module.exports = React.createClass({
     render: function () {
         var curQuestion = this.state.questions[this.state.currentQuestionOffset];
         var correctAnswerId = this.state.correctAnswers[curQuestion.id];
-        var showSubmitButton = Object.keys(this.state.selectedAnswers).length === this.state.questions.length;
+        var showSubmitButton = Object.keys(this.state.selectedAnswers).length === this.state.questions.length && !correctAnswerId;
 
         var className = 'in-progress';
 
