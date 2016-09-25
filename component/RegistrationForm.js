@@ -33,10 +33,6 @@ module.exports = React.createClass({
         this.props.handleNameCallback(this.state.name);
     },
 
-    validate: function () {
-
-    },
-
     render: function () {
         return div(null,
 
