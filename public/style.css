@@ -58,3 +58,18 @@ button.submit {
     width: 100%;
     margin-bottom: 20px;
 }
+
+.pagination-container {
+    margin: 0 100px;
+    text-align: center;
+}
+
+.pagination {
+    margin: 0;
+}
+
+.pagination li:hover {
+    cursor: pointer;
+}
+
+

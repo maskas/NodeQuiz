@@ -1,7 +1,12 @@
 var React = require('react'),
+    Pagination = React.createFactory(require('./Pagination')),
     DOM = React.DOM,
+    a = DOM.a,
     div = DOM.div,
-    button = DOM.button;
+    button = DOM.button,
+    li = DOM.li,
+    ul = DOM.ul;
+
 
 module.exports = React.createClass({
 
@@ -28,9 +33,8 @@ module.exports = React.createClass({
         var showNextButton = this.state.questionCount > this.state.curQuestion + 1;
 
         return div(null,
-
             showPrevButton ? button({
-                    className: 'btn btn-primary',
+                    className: 'btn btn-primary pull-left',
                     onClick: this.move.bind(this, -1)
                 },
                 '← Prev'
@@ -40,7 +44,12 @@ module.exports = React.createClass({
                     onClick: this.move.bind(this, 1)
                 },
                 'Next  →'
-            ) : null
+            ) : null,
+            Pagination({
+                questionCount: this.state.questionCount,
+                curQuestion: this.state.curQuestion,
+                navigateToCallback: this.props.navigateToCallback
+            })
         )
     }
 });
