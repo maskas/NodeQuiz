@@ -10,7 +10,7 @@ var http = require('http'),
     body = DOM.body,
     querystring = require('querystring'),
     repository = require('./repository'),
-    rootController = require('./controller/root.js'),
+    routes = require('./routes'),
 
 app = new express();
 
@@ -20,7 +20,7 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.get('/', rootController.handle);
+app.get('/', routes.index);
 
 
 app.get('/bundle.js', function (req, res) {
