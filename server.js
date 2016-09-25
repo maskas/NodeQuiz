@@ -5,7 +5,6 @@ var http = require('http'),
     fs = require('fs'),
     json = require('json'),
     literalify = require('literalify'),
-    low = require('lowdb'),
     React = require('react'),
     ReactDOMServer = require('react-dom/server'),
     DOM = React.DOM,
@@ -18,9 +17,12 @@ var http = require('http'),
     meta = DOM.meta,
     h1 = DOM.h1,
     querystring = require('querystring'),
+    repository = require('./repository'),
 
     Quiz = React.createFactory(require('./App'));
 app = new express();
+
+
 
 
 app.use(express.static('public'));
@@ -31,18 +33,11 @@ app.use(bodyParser.json());
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
-var dbQuestions = low('db-questions.json');
-var dbCandidates = low('db-candidates.json');
-
-dbQuestions.defaults({questions: []}).value();
-dbCandidates.defaults({candidates: []}).value();
-
 app.get('/', function (req, res) {
     res.setHeader('Content-Type', 'text/html');
 
     var props = {
-        questions: dbQuestions.get('questions').value(),
+        questions: repository.getQuestions(),
         currentQuestion: 0
     };
 
@@ -127,13 +122,11 @@ app.get('/bundle.js', function (req, res) {
 });
 
 app.post('/submit', function (req, res) {
-
-    console.log(req.body);
-    dbCandidates.get('candidates').push({
+    repository.storeCandidate({
         selectedAnswers: req.body.selectedAnswers
-    }).value();
+    });
 
-    var questions = dbQuestions.get('questions').value();
+    var questions = repository.getQuestions();
 
     var correctAnswers = {};
 
