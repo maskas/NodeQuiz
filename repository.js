@@ -1,6 +1,6 @@
 var low = require('lowdb');
-var dbQuestions = low('db-questions.json');
-var dbCandidates = low('db-candidates.json');
+var dbQuestions = low('data/questions.json');
+var dbCandidates = low('data/candidates.json');
 
 dbQuestions.defaults({questions: []}).value();
 dbCandidates.defaults({candidates: []}).value();
