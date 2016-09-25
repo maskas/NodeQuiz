@@ -6,11 +6,11 @@ dbQuestions.defaults({questions: []}).value();
 dbCandidates.defaults({candidates: []}).value();
 
 module.exports = {
-    getQuestions: function() {
+    getQuestions: function () {
         return dbQuestions.get('questions').value();
     },
 
-    storeCandidate: function(candidate) {
+    storeCandidate: function (candidate) {
         dbCandidates.get('candidates').push(candidate).value();
     }
 };
