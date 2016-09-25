@@ -4,21 +4,37 @@ var React = require('react'),
     div = DOM.div,
     form = DOM.form,
     input = DOM.input,
-    h2 = DOM.h2;
+    h2 = DOM.h2,
+    p = DOM.p;
 
 module.exports = React.createClass({
 
     getInitialState: function () {
-        return {}
+        return {
+            name: ''
+        }
     },
 
     handleNameChange: function (e) {
-        this.setState({name: e.target.value});
+        this.setState({
+            name: e.target.value,
+            error: e.target.value == ''
+        });
     },
 
     handleSubmit: function (e) {
         e.preventDefault();
+        if (this.state.name == '') {
+            this.setState({
+                error: true
+            });
+            return;
+        }
         this.props.handleNameCallback(this.state.name);
+    },
+
+    validate: function () {
+
     },
 
     render: function () {
@@ -26,8 +42,13 @@ module.exports = React.createClass({
 
             h2({className: 'question'}, 'Please enter your full name'),
             form({onSubmit: this.handleSubmit},
-                div({className: "input-group"},
-                    input({onChange: this.handleNameChange, className: "form-control"})
+                div({className: "input-group " + (this.state.error ? 'has-error' : '')},
+                    input({onChange: this.handleNameChange, className: "form-control"}),
+                    this.state.error ? p({
+                            className: "text-danger"
+                        },
+                        'This field is required'
+                    ): null
                 ),
                 div({className: "input-group"},
                     button({
