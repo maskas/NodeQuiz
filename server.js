@@ -145,8 +145,11 @@ app.post('/submit', function (req, res) {
     res.end(JSON.stringify({correctAnswers: correctAnswers}));
 });
 
-app.listen(3000);
-
+var port = 3000;
+if (process.env.SERVER_PORT) {
+    port = process.env.SERVER_PORT
+}
+app.listen(port);
 
 // A utility function to safely escape JSON for embedding in a <script> tag
 function safeStringify(obj) {
