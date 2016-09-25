@@ -4,6 +4,7 @@ var express = require('express'),
 
 router.post('/', function(req, res) {
     repository.storeCandidate({
+        name: req.body.name,
         selectedAnswers: req.body.selectedAnswers
     });
 

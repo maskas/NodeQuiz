@@ -1,6 +1,7 @@
 var React = require('react'),
     Question = React.createFactory(require('./Question')),
     Navigation = React.createFactory(require('./Navigation')),
+    RegistrationForm = React.createFactory(require('./RegistrationForm')),
     DOM = React.DOM,
     div = DOM.div,
     button = DOM.button;
@@ -41,6 +42,7 @@ module.exports = React.createClass({
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
+                name: this.state.name,
                 selectedAnswers: this.state.selectedAnswers
             })
         })
@@ -65,6 +67,12 @@ module.exports = React.createClass({
         })
     },
 
+    handleName: function (name) {
+        this.setState({
+            name: name
+        })
+    },
+
     render: function () {
         var curQuestion = this.state.questions[this.state.currentQuestionOffset];
         var correctAnswerId = this.state.correctAnswers[curQuestion.id];
@@ -74,6 +82,12 @@ module.exports = React.createClass({
 
         if (correctAnswerId) {
             className = 'complete'
+        }
+
+        if (!this.state.name) {
+            return RegistrationForm({
+                handleNameCallback: this.handleName
+            });
         }
 
         return div({className: className},

@@ -53,3 +53,8 @@ button.submit {
     clear: both;
     margin: auto;
 }
+
+.input-group {
+    width: 100%;
+    margin-bottom: 20px;
+}
