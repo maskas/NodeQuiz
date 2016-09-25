@@ -48,7 +48,8 @@ module.exports = React.createClass({
             Pagination({
                 questionCount: this.state.questionCount,
                 curQuestion: this.state.curQuestion,
-                navigateToCallback: this.props.navigateToCallback
+                navigateToCallback: this.props.navigateToCallback,
+                stateProviderCallback: this.props.stateProviderCallback
             })
         )
     }

@@ -2,7 +2,6 @@ var React = require('react'),
     DOM = React.DOM,
     a = DOM.a,
     div = DOM.div,
-    button = DOM.button,
     li = DOM.li,
     ul = DOM.ul;
 
@@ -36,6 +35,9 @@ module.exports = React.createClass({
             if (this.state.curQuestion === i) {
                 className = 'active';
             }
+
+            className = className + ' ' + this.props.stateProviderCallback(i);
+
             var newItem =
                 li({
                     className: className,

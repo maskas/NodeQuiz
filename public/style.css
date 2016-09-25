@@ -72,4 +72,11 @@ button.submit {
     cursor: pointer;
 }
 
+.pagination li.answered a,
+.pagination li.correct a{
+    background-color: #dff3db;
+}
 
+.pagination li.error a{
+    background-color: #fddada;
+}

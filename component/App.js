@@ -72,6 +72,29 @@ module.exports = React.createClass({
         })
     },
 
+    /**
+     * Provide the state of the question by given offset.
+     * @param questionOffset
+     * @return string 'unanswered', 'answered', 'correct', 'error'
+     */
+    stateProvider: function(questionOffset) {
+        var curQuestion = this.state.questions[questionOffset];
+        var correctAnswerId = this.state.correctAnswers[curQuestion.id];
+        if (correctAnswerId) {
+            if (correctAnswerId == this.state.selectedAnswers[curQuestion.id]) {
+                return 'correct'
+            } else {
+                return 'error'
+            }
+        } else {
+            if (this.state.selectedAnswers[curQuestion.id] != undefined) {
+                return 'answered'
+            } else {
+                return 'unanswered'
+            }
+        }
+    },
+
     handleName: function (name) {
         this.setState({
             name: name
@@ -107,7 +130,8 @@ module.exports = React.createClass({
             Navigation({
                 navigateToCallback: this.navigateTo,
                 questionCount: this.state.questions.length,
-                curQuestion: this.state.currentQuestionOffset
+                curQuestion: this.state.currentQuestionOffset,
+                stateProviderCallback: this.stateProvider
             }),
             showSubmitButton ? div({className: 'submit'},
                 button({
