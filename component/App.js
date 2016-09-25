@@ -1,5 +1,6 @@
 var React = require('react'),
     Question = React.createFactory(require('./Question')),
+    Navigation = React.createFactory(require('./Navigation')),
     DOM = React.DOM,
     div = DOM.div,
     button = DOM.button;
@@ -19,15 +20,15 @@ module.exports = React.createClass({
         this.setState({disabled: false})
     },
 
-    moveToPrev: function (questionNumber) {
+    navigateTo: function(questionNumber) {
+        if (questionNumber < 0) {
+            questionNumber = 0;
+        }
+        if (questionNumber > this.state.questions.length - 1) {
+            questionNumber = this.state.questions.length - 1;
+        }
         this.setState({
-            currentQuestion: this.state.currentQuestion - 1
-        })
-    },
-
-    moveToNext: function (questionNumber) {
-        this.setState({
-            currentQuestion: this.state.currentQuestion + 1
+            currentQuestion: questionNumber
         })
     },
 
@@ -66,10 +67,8 @@ module.exports = React.createClass({
 
     render: function () {
         var curQuestion = this.state.questions[this.state.currentQuestion];
-        var showNextButton = this.state.currentQuestion !== this.state.questions.length - 1;
-        var showPrevButton = this.state.currentQuestion !== 0;
         var correctAnswerId = this.state.correctAnswers[curQuestion.id];
-        var showSubmitButton = !showNextButton && !correctAnswerId;
+        var showSubmitButton = (this.state.currentQuestion === this.state.questions.length - 1) && !correctAnswerId;
 
         var className = 'in-progress';
 
@@ -86,18 +85,11 @@ module.exports = React.createClass({
                 answers: curQuestion.answers,
                 correctAnswerId: correctAnswerId
             }),
-            showPrevButton ? button({
-                    className: 'btn btn-primary',
-                    onClick: this.moveToPrev
-                },
-                '← Prev'
-            ) : null,
-            showNextButton ? button({
-                    className: 'btn btn-primary pull-right',
-                    onClick: this.moveToNext
-                },
-                'Next  →'
-            ) : null,
+            Navigation({
+                navigateToCallback: this.navigateTo,
+                questionCount: this.state.questions.length,
+                curQuestion: this.state.currentQuestion
+            }),
             showSubmitButton ? button({
                     className: 'btn btn-success pull-right',
                     onClick: this.submit,
