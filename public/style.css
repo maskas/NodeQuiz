@@ -81,3 +81,13 @@ button.submit {
 .pagination li.error a{
     background-color: #fddada;
 }
+
+.instructions {
+    position: fixed;
+    left: 10px;
+    bottom: 0px;
+}
+
+.instructions img {
+    width: 100px;
+}
