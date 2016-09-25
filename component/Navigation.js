@@ -24,6 +24,25 @@ module.exports = React.createClass({
         })
     },
 
+    componentWillMount: function(){
+        document.addEventListener("keydown", this.handleKey, false);
+    },
+
+    componentWillUnmount: function() {
+        document.removeEventListener("keydown", this.handleKey, false);
+    },
+
+    handleKey:function(event){
+        switch(event.keyCode) {
+            case 39:
+                this.props.navigateToCallback(this.state.curQuestion + 1);
+                break;
+            case 37:
+                this.props.navigateToCallback(this.state.curQuestion - 1);
+                break;
+        }
+    },
+
     move: function (step) {
         this.props.navigateToCallback(this.state.curQuestion + step);
     },
