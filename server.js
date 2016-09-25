@@ -1,16 +1,13 @@
-var http = require('http'),
+var
     bodyParser = require('body-parser'),
     express = require('express'),
-    fs = require('fs'),
-    json = require('json'),
-    React = require('react'),
-    DOM = React.DOM,
-    body = DOM.body,
-    querystring = require('querystring'),
-    index = require('./routes/index'),
-    bundle = require('./routes/bundle'),
-    submit = require('./routes/submit'),
+    http = require('http'),
     app = new express();
+
+var
+    bundle = require('./routes/bundle'),
+    index = require('./routes/index'),
+    submit = require('./routes/submit');
 
 
 app.use(express.static('public'));
