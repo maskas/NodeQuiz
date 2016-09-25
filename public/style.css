@@ -21,10 +21,6 @@ h1 {
     cursor: pointer;
 }
 
-.answers li a:hover {
-    background: none;
-}
-
 .answers li a {
     color: #333;
     font-size: 18px;
