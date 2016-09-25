@@ -1,3 +1,5 @@
+//fetch questions and store applicant data
+
 var low = require('lowdb');
 var dbQuestions = low('data/questions.json');
 var dbCandidates = low('data/candidates.json');

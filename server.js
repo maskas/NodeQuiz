@@ -1,3 +1,6 @@
+//bootstrap the app.
+//usage: node server.js
+
 var
     bodyParser = require('body-parser'),
     express = require('express'),

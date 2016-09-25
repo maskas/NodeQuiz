@@ -1,3 +1,5 @@
+//supply bundle.js
+
 var browserify = require('browserify'),
     express = require('express'),
     literalify = require('literalify'),
@@ -16,6 +18,5 @@ router.get('/', function(req, res) {
         .bundle()
         .pipe(res)
 });
-
 
 module.exports = router;
