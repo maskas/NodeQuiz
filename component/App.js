@@ -1,7 +1,9 @@
 var React = require('react'),
     Question = React.createFactory(require('./Question')),
     $ = require('jquery'),
-    DOM = React.DOM, div = DOM.div, button = DOM.button, h1 = DOM.h1
+    DOM = React.DOM,
+    div = DOM.div,
+    button = DOM.button;
 
 module.exports = React.createClass({
 
