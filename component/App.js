@@ -1,6 +1,5 @@
 var React = require('react'),
     Question = React.createFactory(require('./Question')),
-    $ = require('jquery'),
     DOM = React.DOM,
     div = DOM.div,
     button = DOM.button;
@@ -39,17 +38,24 @@ module.exports = React.createClass({
         });
 
         var context = this;
-        $.ajax({
-            type: 'POST',
-            dataType: 'json',
-            url: '/submit',
-            data: {selectedAnswers: selectedAnswers},
-            success: function (data) {
-                context.setState({
-                    correctAnswers: data.correctAnswers
-                })
-            }
+        fetch('/submit', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                selectedAnswers: selectedAnswers
+            })
         })
+            .then(function(response){return response.json()})
+            .then(function(jsonResponse) {
+                context.setState({
+                    correctAnswers: jsonResponse.correctAnswers
+                });
+            })
+        ;
+
     },
 
     handleAnswerSelect: function (answerId) {
