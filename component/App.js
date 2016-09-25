@@ -64,6 +64,12 @@ module.exports = React.createClass({
 
     handleAnswerSelect: function (answerId) {
         var curQuestion = this.state.questions[this.state.currentQuestionOffset];
+        var correctAnswerId = this.state.correctAnswers[curQuestion.id];
+        if (correctAnswerId) {
+            return; //we are looking at the answer. Can't change our mind;
+        }
+
+        var curQuestion = this.state.questions[this.state.currentQuestionOffset];
         var selectedAnswers = this.state.selectedAnswers;
         selectedAnswers[curQuestion.id] = answerId;
 

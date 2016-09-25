@@ -24,6 +24,32 @@ module.exports = React.createClass({
         })
     },
 
+    componentWillMount: function(){
+        document.addEventListener("keydown", this.handleKey, false);
+    },
+
+    componentWillUnmount: function() {
+        document.removeEventListener("keydown", this.handleKey, false);
+    },
+
+    handleKey:function(event){
+        var keyCode = event.keyCode;
+        if (keyCode > 57) { //shift numpad keys on top of regular number keys
+            keyCode -= 48;
+        }
+        keyCode = keyCode - 49; //if user pressed key 1 (code 49,) shift it to 0 - first answer
+
+        if (keyCode < 0 || keyCode > 8) {
+            return; //not a number
+        }
+
+        if (this.state.answers.length < keyCode + 1) {
+            return; //key pressed is greater than total count of provided answers
+        }
+
+        this.props.answerSelectCallback(this.state.answers[keyCode].id)
+    },
+
     componentWillReceiveProps: function (nextProps) {
         this.setState({
             text: nextProps.text,
@@ -60,7 +86,7 @@ module.exports = React.createClass({
                     }
 
                     return li({
-                            onClick: this.state.correctAnswerId ? null : this.handleClick.bind(this, answer.id),
+                            onClick: this.handleClick.bind(this, answer.id),
                             role: 'presentation',
                             className: className
                         },
